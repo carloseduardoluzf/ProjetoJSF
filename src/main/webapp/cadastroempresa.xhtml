@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>StefaniniFood</title>
+
+</h:head>
+
+
+
+<h:body>
+
+	<h:form id="tabelaEmpresa">
+		<h:messages id="messages" />
+		<p:fieldset legend="Cadastro">
+			<p:panelGrid columns="2" id="empresa-cadastro">
+				<h:outputLabel value="Nome da empresa:" for="nomeEmpresa"></h:outputLabel>
+				<p:inputText id="nomeEmpresa"
+					value="#{empresaBean.empresa.nomeEmpresa}" required="true"
+					requiredMessage="O nome da empresa deve ser informado!">
+
+					<f:ajax event="blur" render="messages"></f:ajax>
+
+				</p:inputText>
+
+				<h:outputLabel value="CNPJ:" for="cnpj"></h:outputLabel>
+				<p:inputText id="cnpj" value="#{empresaBean.empresa.cnpj}"
+					required="true" requiredMessage="O CNPJ deve ser informado!"
+					validatorMessage="O CNPJ deve possuir no máximo 14">
+
+					<f:validateLength maximum="14" />
+					<f:ajax event="blur" render="messages"></f:ajax>
+
+				</p:inputText>
+
+				<h:outputLabel value="Tipo de Empresa:" for="tipoEmpresa"></h:outputLabel>
+				<p:inputText id="tipoEmpresa"
+					value="#{empresaBean.empresa.tipoEmpresa}" required="true"
+					requiredMessage="O tipo de empresa deve ser informado!">
+
+					<f:ajax event="blur" render="messages"></f:ajax>
+
+				</p:inputText>
+
+				<h:outputLabel value="Email:" for="email"></h:outputLabel>
+				<p:inputText id="email" value="#{empresaBean.empresa.email}"
+					required="true" requiredMessage="O email deve ser informado!">
+
+					<f:ajax event="blur" render="messages"></f:ajax>
+
+				</p:inputText>
+
+				<h:outputLabel value="Telefone:" for="telefone"></h:outputLabel>
+				<p:inputText id="telefone" value="#{empresaBean.empresa.telefone}"
+					required="true" requiredMessage="O telefone deve ser informado!">
+
+					<f:ajax event="blur" render="messages"></f:ajax>
+
+				</p:inputText>
+
+				<h:commandButton value="Enviar" action="#{empresaBean.adicionar}">
+					<f:ajax execute="@form" render="@form :tabelaEmpresa " />
+				</h:commandButton>
+
+			</p:panelGrid>
+		</p:fieldset>
+
+		<p:fieldset legend="Fornecedores">
+			<p:panelGrid columns="5">
+				<h:outputLabel value="Selecione seu fornecedor: " for="fornecedor"></h:outputLabel>
+				<h:selectOneMenu value="#{empresaBean.fornecedorId}" id="fornecedor">
+					<f:selectItems value="#{empresaBean.fornecedores}" var="fornecedor"
+						itemValue="#{fornecedor.id}"
+						itemLabel="#{fornecedor.nomeFornecedor}"  />
+				</h:selectOneMenu>
+				<h:commandButton value="Gravar Fornecedor"
+					action="#{empresaBean.gravarFornecedor}">
+					<f:ajax execute="fornecedor" render="tabelaFornecedores"></f:ajax>
+				</h:commandButton>
+
+				<p:dataTable value="#{empresaBean.fornecedoresDaEmpresa}"
+					var="fornecedor" id="tabelaFornecedores">
+					<p:column>
+						<h:outputText value="#{fornecedor.nomeFornecedor}"></h:outputText>
+					</p:column>
+				</p:dataTable>
+			</p:panelGrid>
+			
+		</p:fieldset>
+	
+
+
+	
+</h:form>
+
+
+
+<h:form>
+	<p:dataTable id="tabelaEmpresa" value="#{empresaBean.empresas}"
+		var="empresaz">
+		<p:column>
+			<f:facet name="header">Id</f:facet>
+			<h:outputText value="#{empresaz.id}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">Nome da Empresa</f:facet>
+			<h:outputText value="#{empresaz.nomeEmpresa}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">CNPJ</f:facet>
+			<h:outputText value="#{empresaz.cnpj}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">Tipo de Empresa</f:facet>
+			<h:outputText value="#{empresaz.tipoEmpresa}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">Email</f:facet>
+			<h:outputText value="#{empresaz.email}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">Telefone</f:facet>
+			<h:outputText value="#{empresaz.telefone}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">Remover</f:facet>
+			<h:commandLink value="Deletar"
+				action="#{empresaBean.remover(empresaz)}">
+				
+			</h:commandLink>
+		</p:column>
+		<p:column>
+			<f:facet name="header">Alterar</f:facet>
+			<h:commandLink value="Alterar"
+				action="#{empresaBean.atualizar(empresaz)}">
+			
+			</h:commandLink>
+		</p:column>
+
+
+	</p:dataTable>
+</h:form>
+
+</h:body>
+
+
+
+
+
+
+</html>

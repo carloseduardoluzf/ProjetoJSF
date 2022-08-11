@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<h:body>
+		<h1>Cadastrar Fornecedor</h1>z
+		<h:form id="fornecedor">
+			<fieldset>
+				<legend>Dados do Fornecedor</legend>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Nome:" for="nome" />
+					<h:inputText id="nome" value="#{fornecedorBean.fornecedor.nomeFornecedor}" />
+					<h:commandButton value="Gravar" action="#{fornecedorBean.cadastrarFornecedor}" />
+				</h:panelGrid>
+			</fieldset>
+		</h:form>
+	</h:body>
+
+</html>
